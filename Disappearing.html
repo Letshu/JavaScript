@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		Reaction Game
+	</title>
+	<style type="text/css">
+		body{
+			font-family:sans-serif;
+		}
+		#redBlock{
+			background-color: red;
+			width: 200px;
+			height: 200px;
+			border-radius: 0;
+			display: none;
+			position: relative;
+		}
+	</style>
+</head>
+<body>
+	<h1>Test your reaction time</h1>
+	<p> Click on the circle or box as quickly as possible</p>
+	<p id="Time"> The time taken is: <span id="space"></span></p>
+	<div id="redBlock"></div>
+
+	<script type="text/javascript">
+		var start = new Date().getTime();
+		function makeAppear() {
+			document.getElementById("redBlock").style.display = "block";
+			start = new Date().getTime();
+
+		}
+		function getRandomColor() {  	
+  			var letters = '0123456789ABCDEF';
+  			var color = '#';
+  			for (var i = 0; i < 6; i++) {
+    			color += letters[Math.floor(Math.random() * 16)];
+  			}
+  				return color;
+			}
+
+		function makeAppearAgain(){
+			var top = Math.random()*400;
+			var left = Math.random()*400;
+			var height= Math.random()*400;
+			var width = (Math.random()*200)+100;
+			if(Math.random()>0.5){
+				document.getElementById("redBlock").style.borderRadius = "50%";
+			}else{
+				document.getElementById("redBlock").style.borderRadius = "0%";
+			}
+			document.getElementById("redBlock").style.top = top+"px";
+			document.getElementById("redBlock").style.left= left+"px";
+			document.getElementById("redBlock").style.height = height+"px";
+			document.getElementById("redBlock").style.width = width+"px";
+			document.getElementById("redBlock").style.backgroundColor = getRandomColor();
+			setTimeout(makeAppear,Math.random()*2000);
+		}
+		makeAppearAgain();
+		
+		document.getElementById("redBlock").onclick = function () {
+			document.getElementById("redBlock").style.display = "none";
+			var end = new Date().getTime();
+			var time = (end-start)/1000;
+			document.getElementById("space").innerHTML =time+"s" ;
+			makeAppearAgain();
+		}
+
+	</script>
+
+</body>
+</html>
